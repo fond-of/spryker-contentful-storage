@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfSpryker\ContentfulStorage\Business\Storage;
+namespace FondOfSpryker\Zed\ContentfulStorage\Business\Storage;
 
 class ContentfulStorageWriter implements ContentfulStorageWriterInterface
 {

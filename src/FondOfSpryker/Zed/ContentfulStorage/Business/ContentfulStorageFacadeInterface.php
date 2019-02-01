@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfSpryker\ContentfulStorage\Business;
+namespace FondOfSpryker\Zed\ContentfulStorage\Business;
 
 interface ContentfulStorageFacadeInterface
 {

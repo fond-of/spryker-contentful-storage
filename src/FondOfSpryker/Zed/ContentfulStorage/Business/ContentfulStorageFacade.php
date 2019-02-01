@@ -1,22 +1,25 @@
 <?php
 
-namespace FondOfSpryker\ContentfulStorage\Business;
+namespace FondOfSpryker\Zed\ContentfulStorage\Business;
 
+use Exception;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfSpryker\ContentfulStorage\Business\ContentfulStorageBusinessFactory getFactory()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Business\ContentfulStorageBusinessFactory getFactory()
  */
-class ContentfulStorageFacade extends AbstractFacade
+class ContentfulStorageFacade extends AbstractFacade implements ContentfulStorageFacadeInterface
 {
     /**
      * @param array $contentfulEntryIds
+     *
+     * @throws \Exception
      *
      * @return void
      */
     public function publish(array $contentfulEntryIds): void
     {
-        // TODO: Implement publish() method.
+        throw new Exception('ContentfulStorageFacade->publish() calles');
     }
 
     /**
