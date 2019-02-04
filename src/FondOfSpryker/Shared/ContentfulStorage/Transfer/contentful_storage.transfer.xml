@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ContentfulStorage">
+        <property name="contentfulId" type="string" />
+        <property name="contentfulType" type="string" />
+        <property name="contentfulData" type="string" />
+        <property name="contentfulLocale" type="string" />
+        <property name="storeName" type="string" />
+    </transfer>
+</transfers>

@@ -2,7 +2,6 @@
 
 namespace FondOfSpryker\Zed\ContentfulStorage\Business;
 
-use Exception;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -13,13 +12,11 @@ class ContentfulStorageFacade extends AbstractFacade implements ContentfulStorag
     /**
      * @param array $contentfulEntryIds
      *
-     * @throws \Exception
-     *
      * @return void
      */
     public function publish(array $contentfulEntryIds): void
     {
-        throw new Exception('ContentfulStorageFacade->publish() calles');
+        $this->getFactory()->createContentfulStorageWriter()->publish($contentfulEntryIds);
     }
 
     /**
