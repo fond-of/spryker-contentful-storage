@@ -3,11 +3,15 @@
 namespace FondOfSpryker\Service\ContentfulStorage\Plugin;
 
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
-use Orm\Zed\Contentful\Persistence\FosContentfulQuery;
+use Spryker\Service\Kernel\AbstractPlugin;
 use Spryker\Service\Synchronization\Dependency\Plugin\SynchronizationKeyGeneratorPluginInterface;
-use Spryker\Service\Synchronization\Plugin\BaseKeyGenerator;
 
-class ContentfulStorageKeyGeneratorPlugin extends BaseKeyGenerator implements SynchronizationKeyGeneratorPluginInterface
+/**
+ * Class ContentfulStorageKeyGeneratorPlugin
+ * @package FondOfSpryker\Service\ContentfulStorage\Plugin
+ * @method \FondOfSpryker\Service\ContentfulStorage\ContentfulStorageServiceFactory getFactory()
+ */
+class ContentfulStorageKeyGeneratorPlugin extends AbstractPlugin implements SynchronizationKeyGeneratorPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\SynchronizationDataTransfer $dataTransfer
@@ -17,12 +21,10 @@ class ContentfulStorageKeyGeneratorPlugin extends BaseKeyGenerator implements Sy
     public function generateKey(SynchronizationDataTransfer $dataTransfer): string
     {
         /** @var \Orm\Zed\Contentful\Persistence\FosContentful $entity */
-        $entity = FosContentfulQuery::create()
+        $entity = $this->getFactory()
+            ->createFosContentfulQuery()
             ->findPk($dataTransfer->getReference());
 
-        $storeName = strtolower($entity->getStoreName());
-        $locale = strtolower($entity->getContentfulLocale());
-
-        return $storeName . '.' . $locale . '.contentful.xxxxx.' . $entity->getContentfulId();
+        return $entity->getStorageKey();
     }
 }
