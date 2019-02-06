@@ -5,14 +5,32 @@ namespace FondOfSpryker\Zed\ContentfulStorage\Business\Storage;
 use Generated\Shared\Transfer\ContentfulStorageTransfer;
 use Orm\Zed\Contentful\Persistence\FosContentfulQuery;
 use Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage;
+use Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery;
 
 class ContentfulStorageWriter implements ContentfulStorageWriterInterface
 {
     /**
-     * ContentfulStorageWriter constructor.
+     * @var \Orm\Zed\Contentful\Persistence\FosContentfulQuery
      */
-    public function __construct()
-    {
+    protected $contentfulQuery;
+
+    /**
+     * @var \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery
+     */
+    protected $contentfulStorageQuery;
+
+    /**
+     * ContentfulStorageWriter constructor.
+     *
+     * @param \Orm\Zed\Contentful\Persistence\FosContentfulQuery $contentfulQuery
+     * @param \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery $contentfulStorageQuery
+     */
+    public function __construct(
+        FosContentfulQuery $contentfulQuery,
+        FosContentfulStorageQuery $contentfulStorageQuery
+    ) {
+        $this->contentfulQuery = $contentfulQuery;
+        $this->contentfulStorageQuery = $contentfulStorageQuery;
     }
 
     /**
@@ -22,7 +40,8 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
      */
     public function publish(array $contentfulEntryIds): void
     {
-        $contentfulEntries = FosContentfulQuery::create()
+        $this->contentfulQuery->clear();
+        $contentfulEntries = $this->contentfulQuery
             ->filterByIdContentful_In($contentfulEntryIds);
 
         /** @var \Orm\Zed\Contentful\Persistence\FosContentful $entry */
@@ -45,18 +64,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     }
 
     /**
-     * @param array $contentfulIds
-     *
-     * @return mixed
-     */
-    protected function getContentfulEntry(array $contentfulIds)
-    {
-        return FosContentfulQuery::create()
-            ->filterByContentfulId_In($contentfulIds)
-            ->find();
-    }
-
-    /**
      * @param int $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
      *
@@ -64,10 +71,23 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
      */
     protected function store(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): void
     {
-        $contentfulStorageEntity = new FosContentfulStorage();
+        $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId);
         $contentfulStorageEntity->setFkContentful($contentfulId);
         $contentfulStorageEntity->setData($contentfulStorageTransfer->getContentfulData());
-        $contentfulStorageEntity->setKey($contentfulStorageTransfer->getStorageKey());
         $contentfulStorageEntity->save();
+    }
+
+    /**
+     * @param int $contentfulId
+     *
+     * @return \Orm\Zed\Contentful\Persistence\FosContentful
+     */
+    protected function getContentfulStorageEntity(int $contentfulId): FosContentfulStorage
+    {
+        $this->contentfulStorageQuery->clear();
+
+        return $this->contentfulStorageQuery
+            ->filterByFkContentful($contentfulId)
+            ->findOneOrCreate();
     }
 }

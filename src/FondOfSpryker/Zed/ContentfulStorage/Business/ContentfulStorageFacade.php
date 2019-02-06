@@ -24,6 +24,16 @@ class ContentfulStorageFacade extends AbstractFacade implements ContentfulStorag
      *
      * @return void
      */
+    public function update(array $contentfulEntryIds): void
+    {
+        $this->getFactory()->createContentfulStorageWriter()->update($contentfulEntryIds);
+    }
+
+    /**
+     * @param array $contentfulEntryIds
+     *
+     * @return void
+     */
     public function unpublish(array $contentfulEntryIds): void
     {
         // TODO: Implement unpublish() method.
