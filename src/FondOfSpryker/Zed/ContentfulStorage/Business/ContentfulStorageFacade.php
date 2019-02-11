@@ -38,4 +38,24 @@ class ContentfulStorageFacade extends AbstractFacade implements ContentfulStorag
     {
         // TODO: Implement unpublish() method.
     }
+
+    /**
+     * @param array $contentfulEntryIds
+     *
+     * @return void
+     */
+    public function publishSearch(array $contentfulEntryIds): void
+    {
+        // TODO: Implement publishSearch() method.
+    }
+
+    /**
+     * @param array $contentfulEntryIds
+     *
+     * @return void
+     */
+    public function unpublishSearch(array $contentfulEntryIds): void
+    {
+        // TODO: Implement unpublishSearch() method.
+    }
 }

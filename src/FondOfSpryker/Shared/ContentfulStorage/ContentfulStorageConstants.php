@@ -4,6 +4,6 @@ namespace FondOfSpryker\Shared\ContentfulStorage;
 
 class ContentfulStorageConstants
 {
-    public const CONTENTFUL_SEARCH_QUEUE = 'sync.search.contentful';
-    public const CONTENTFUL_SEARCH_QUEUE_ERROR = 'sync.search.contentful.error';
+    public const CONTENTFUL_SYNC_STORAGE_QUEUE = 'sync.storage.contentful';
+    public const CONTENTFUL_SYNC_STORAGE_QUEUE_ERROR = 'sync.storage.contentful.error';
 }

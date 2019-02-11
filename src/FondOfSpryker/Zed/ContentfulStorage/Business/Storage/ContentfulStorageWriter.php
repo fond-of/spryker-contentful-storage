@@ -73,7 +73,7 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     {
         $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId);
         $contentfulStorageEntity->setFkContentful($contentfulId);
-        $contentfulStorageEntity->setData($contentfulStorageTransfer->getContentfulData());
+        $contentfulStorageEntity->setData($contentfulStorageTransfer->getEntryData());
         $contentfulStorageEntity->save();
     }
 

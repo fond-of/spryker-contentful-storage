@@ -5,9 +5,10 @@
 
     <transfer name="ContentfulStorage">
         <property name="contentfulId" type="string" />
-        <property name="contentfulTypeId" type="string" />
-        <property name="contentfulData" type="string" />
-        <property name="contentfulLocale" type="string" />
+        <property name="entryId" type="string" />
+        <property name="entryTypeId" type="string" />
+        <property name="entryData" type="string" />
+        <property name="entryLocale" type="string" />
         <property name="storageKey" type="string" />
     </transfer>
 </transfers>

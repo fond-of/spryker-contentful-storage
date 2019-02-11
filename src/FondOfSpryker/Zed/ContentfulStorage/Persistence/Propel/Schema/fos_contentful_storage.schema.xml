@@ -15,12 +15,17 @@
         </index>
 
         <id-method-parameter value="fos_contentful_storage_pk_seq"/>
+
         <behavior name="synchronization">
             <parameter name="resource" value="contentful"/>
             <parameter name="key_suffix_column" value="fk_contentful"/>
             <parameter name="queue_group" value="sync.storage.contentful"/>
         </behavior>
         <behavior name="timestampable"/>
+
+        <behavior name="event">
+            <parameter name="fos_contentful_storage_all" column="*"/>
+        </behavior>
     </table>
 
 </database>

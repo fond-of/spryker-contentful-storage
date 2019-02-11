@@ -20,6 +20,8 @@ class ContentfulStorageKeyGeneratorPlugin extends AbstractPlugin implements Sync
      */
     public function generateKey(SynchronizationDataTransfer $dataTransfer): string
     {
+        $this->getFactory()->createFosContentfulQuery()->clear();
+
         /** @var \Orm\Zed\Contentful\Persistence\FosContentful $entity */
         $entity = $this->getFactory()
             ->createFosContentfulQuery()

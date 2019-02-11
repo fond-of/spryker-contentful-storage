@@ -2,14 +2,15 @@
 
 namespace FondOfSpryker\Zed\ContentfulStorage\Communication\Plugin\Event\Subscriber;
 
-use FondOfSpryker\Zed\ContentfulStorage\Communication\Plugin\Event\Listener\ContentfulSearchPageEventListener;
-use FondOfSpryker\Zed\ContentfulStorage\Dependency\ContentfulStorageEvents;
+use FondOfSpryker\Zed\Contentful\Dependency\ContentfulEvents;
+use FondOfSpryker\Zed\ContentfulStorage\Communication\Plugin\Event\Listener\ContentfulStorageListener;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfSpryker\Zed\ContentfulStorage\Business\ContentfulStorageFacade getFacade()
+ * @method \FondOfSpryker\Zed\Contentful\Business\ContentfulFacade getFacade()
+ * @method \FondOfSpryker\Zed\Contentful\Communication\ContentfulCommunicationFactory getFactory()
  */
 class ContentfulStorageEventSubscriber extends AbstractPlugin implements EventSubscriberInterface
 {
@@ -22,8 +23,8 @@ class ContentfulStorageEventSubscriber extends AbstractPlugin implements EventSu
      */
     public function getSubscribedEvents(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        $eventCollection->addListenerQueued(ContentfulStorageEvents::ENTITY_FOS_CONTENTFUL_STORAGE_CREATE, new ContentfulSearchPageEventListener());
-        $eventCollection->addListenerQueued(ContentfulStorageEvents::ENTITY_FOS_CONTENTFUL_STORAGE_UPDATE, new ContentfulSearchPageEventListener());
+        $eventCollection->addListenerQueued(ContentfulEvents::ENTITY_FOS_CONTENTFUL_CREATE, new ContentfulStorageListener());
+        $eventCollection->addListenerQueued(ContentfulEvents::ENTITY_FOS_CONTENTFUL_UPDATE, new ContentfulStorageListener());
 
         return $eventCollection;
     }
