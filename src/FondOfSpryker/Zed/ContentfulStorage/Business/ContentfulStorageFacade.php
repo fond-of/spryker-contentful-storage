@@ -40,22 +40,28 @@ class ContentfulStorageFacade extends AbstractFacade implements ContentfulStorag
     }
 
     /**
-     * @param array $contentfulEntryIds
-     *
-     * @return void
+     * @return int
      */
-    public function publishSearch(array $contentfulEntryIds): void
+    public function importLastChangedEntries(): int
     {
-        // TODO: Implement publishSearch() method.
+        return $this->getFactory()->createImporter()->importLastChangedEntries();
     }
 
     /**
-     * @param array $contentfulEntryIds
-     *
-     * @return void
+     * @return int
      */
-    public function unpublishSearch(array $contentfulEntryIds): void
+    public function importAllEntries(): int
     {
-        // TODO: Implement unpublishSearch() method.
+        return $this->getFactory()->createImporter()->importAllEntries();
+    }
+
+    /**
+     * @param string $entryId
+     *
+     * @return int
+     */
+    public function importEntry(string $entryId): int
+    {
+        return $this->getFactory()->createImporter()->importEntry();
     }
 }

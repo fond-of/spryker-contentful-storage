@@ -64,7 +64,7 @@ class ContentfulStorageDependencyProvider extends AbstractBundleDependencyProvid
     protected function addStorageClient(Container $container): Container
     {
         $container[self::STORAGE_CLIENT] = function (Container $container) {
-            return $container->getLocator()->store()->client();
+            return $container->getLocator()->storage()->client();
         };
 
         return $container;

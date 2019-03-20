@@ -26,12 +26,19 @@ interface ContentfulStorageFacadeInterface
     public function unpublish(array $contentfulEntryIds): void;
 
     /**
-     * @param array $contentfulEntryIds
+     * @return int
      */
-    public function publishSearch(array $contentfulEntryIds): void;
+    public function importLastChangedEntries(): int;
 
     /**
-     * @param array $contentfulEntryIds
+     * @return int
      */
-    public function unpublishSearch(array $contentfulEntryIds): void;
+    public function importAllEntries(): int;
+
+    /**
+     * @param string $entryId
+     *
+     * @return int
+     */
+    public function importEntry(string $entryId): int;
 }

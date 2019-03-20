@@ -46,10 +46,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
 
         /** @var \Orm\Zed\Contentful\Persistence\FosContentful $entry */
         foreach ($contentfulEntries as $entry) {
-            dump(get_class($entry));
-            dump($entry);
-            die();
-
             $contentfulStorageTransfer = new ContentfulStorageTransfer();
             $contentfulStorageTransfer->fromArray($entry->toArray(), true);
 
@@ -78,9 +74,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
         $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId);
         $contentfulStorageEntity->setFkContentful($contentfulId);
         $contentfulStorageEntity->setData($contentfulStorageTransfer->getEntryData());
-
-        dump(\json_decode($contentfulStorageTransfer->getEntryData()));
-        die();
 
         $contentfulStorageEntity->save();
     }
