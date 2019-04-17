@@ -71,7 +71,7 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
      */
     protected function store(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): void
     {
-        $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId);
+        $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId, $contentfulStorageTransfer->getStorageKey());
         $contentfulStorageEntity->setFkContentful($contentfulId);
         $contentfulStorageEntity->setData($contentfulStorageTransfer->getEntryData());
 
@@ -83,12 +83,13 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
      *
      * @return \Orm\Zed\Contentful\Persistence\FosContentful
      */
-    protected function getContentfulStorageEntity(int $contentfulId): FosContentfulStorage
+    protected function getContentfulStorageEntity(int $contentfulId, string $key): FosContentfulStorage
     {
         $this->contentfulStorageQuery->clear();
 
         return $this->contentfulStorageQuery
             ->filterByFkContentful($contentfulId)
+            ->filterByKey($key)
             ->findOneOrCreate();
     }
 }
