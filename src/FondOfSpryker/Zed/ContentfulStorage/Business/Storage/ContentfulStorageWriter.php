@@ -56,40 +56,83 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     /**
      * @param array $contentfulEntryIds
      *
+     * @throws
+     *
      * @return void
      */
     public function unpublish(array $contentfulEntryIds): void
     {
-        // TODO: Implement unpublish() method.
+        $this->contentfulStorageQuery->clear();
+
+        $contentfulStorageEntries = $this->contentfulStorageQuery
+            ->filterByFkContentful_In($contentfulEntryIds);
+
+        /** @var \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage $entry */
+        foreach ($contentfulStorageEntries as $entry) {
+            $entry->delete();
+        }
     }
 
     /**
      * @param int $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
      *
+     * @throws
+     *
      * @return void
      */
     protected function store(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): void
     {
-        $contentfulStorageEntity = $this->getContentfulStorageEntity($contentfulId, $contentfulStorageTransfer->getStorageKey());
-        $contentfulStorageEntity->setFkContentful($contentfulId);
-        $contentfulStorageEntity->setData($contentfulStorageTransfer->getEntryData());
+        $contentfulStorageEntity = $this->findorCreateContentfulStorageEntity($contentfulId, $contentfulStorageTransfer);
+
+        // delete existing URL (identifier) from table fos_contentful_storage
+        if ($contentfulStorageEntity->isNew() === false && $contentfulStorageEntity->getEntryTypeId() === 'page-identifier') {
+            $this->deleteContentfulStorageEntity($contentfulStorageEntity);
+
+            $contentfulStorageEntity = new FosContentfulStorage();
+        }
+
+        $contentfulStorageEntity
+            ->setFkContentful($contentfulId)
+            ->setData($contentfulStorageTransfer->getEntryData())
+            ->setEntryId(strtolower($contentfulStorageTransfer->getEntryId()))
+            ->setEntryTypeId($contentfulStorageTransfer->getEntryTypeId());
 
         $contentfulStorageEntity->save();
     }
 
     /**
-     * @param int $contentfulId
+     * @param \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage $contentfulStorage
      *
-     * @return \Orm\Zed\Contentful\Persistence\FosContentful
+     * @throws
+     *
+     * @return void
      */
-    protected function getContentfulStorageEntity(int $contentfulId, string $key): FosContentfulStorage
+    protected function deleteContentfulStorageEntity(FosContentfulStorage $contentfulStorage): void
+    {
+        $this->contentfulStorageQuery->clear();
+
+        $this->contentfulStorageQuery
+            ->filterByIdContentfulStorage($contentfulStorage->getPrimaryKey())
+            ->delete();
+    }
+
+    /**
+     * @param int $contentfulId
+     * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
+     *
+     * @throws
+     *
+     * @return \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage
+     */
+    protected function findorCreateContentfulStorageEntity(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): FosContentfulStorage
     {
         $this->contentfulStorageQuery->clear();
 
         return $this->contentfulStorageQuery
             ->filterByFkContentful($contentfulId)
-            ->filterByKey($key)
+            ->filterByEntryId($contentfulStorageTransfer->getEntryId())
+            ->filterByEntryTypeId($contentfulStorageTransfer->getEntryTypeId())
             ->findOneOrCreate();
     }
 }

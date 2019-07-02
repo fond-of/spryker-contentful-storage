@@ -9,6 +9,8 @@
     <table name="fos_contentful_storage" idMethod="native" allowPkInsert="true">
         <column name="id_contentful_storage" type="BIGINT" autoIncrement="true" primaryKey="true"/>
         <column name="fk_contentful" type="BIGINT" required="true"/>
+        <column name="entry_id" required="true" size="255" type="VARCHAR"/>
+        <column name="entry_type_id" required="true" size="255" type="VARCHAR"/>
 
         <index name="fos_contentful_storage-fk_contentful">
             <index-column name="fk_contentful"/>
