@@ -27,7 +27,7 @@
         "spryker/glossary": "^3.7.0",
         "spryker/kernel": "^3.37.5",
         "spryker/zed-request": "^3.8.1",
-        "fond-of-spryker/contentful": "*"
+        "fond-of-spryker/contentful": "dev-spryker_upgrade"
     },
     "require-dev": {
         "spryker/code-sniffer": "^0.14.7",
