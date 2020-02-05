@@ -13,7 +13,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 class ContentfulStoragePersistenceFactory extends AbstractPersistenceFactory
 {
     /**
-     * @return \Orm\Zed\ContentfulStorage\Persistence\Base\FosContentfulQuery
+     * @return \Orm\Zed\Contentful\Persistence\FosContentfulQuery
      */
     public function createFosContentfulQuery(): FosContentfulQuery
     {
