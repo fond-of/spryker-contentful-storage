@@ -9,6 +9,8 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfSpryker\Zed\ContentfulStorage\Business\ContentfulStorageFacadeInterface getFacade()
  * @method \FondOfSpryker\Zed\ContentfulStorage\Communication\ContentfulStorageCommunicationFactory getFactory()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Persistence\ContentfulStorageQueryContainerInterface getQueryContainer()
  */
 class ContentfulStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {

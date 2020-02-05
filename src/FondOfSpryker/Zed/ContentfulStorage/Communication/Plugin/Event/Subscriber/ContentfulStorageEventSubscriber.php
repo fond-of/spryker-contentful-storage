@@ -11,6 +11,8 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfSpryker\Zed\Contentful\Business\ContentfulFacade getFacade()
  * @method \FondOfSpryker\Zed\Contentful\Communication\ContentfulCommunicationFactory getFactory()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Persistence\ContentfulStorageQueryContainerInterface getQueryContainer()
  */
 class ContentfulStorageEventSubscriber extends AbstractPlugin implements EventSubscriberInterface
 {

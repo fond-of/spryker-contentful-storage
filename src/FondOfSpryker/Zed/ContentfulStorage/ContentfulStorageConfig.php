@@ -46,8 +46,6 @@ class ContentfulStorageConfig extends AbstractBundleConfig
     }
 
     /**
-     * @throws
-     *
      * @return string
      */
     public function getFieldNameActive(): string
@@ -56,8 +54,6 @@ class ContentfulStorageConfig extends AbstractBundleConfig
     }
 
     /**
-     * @throws
-     *
      * @return string
      */
     public function getFieldNameIdentifier(): string

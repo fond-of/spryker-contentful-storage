@@ -79,7 +79,7 @@ class ContentfulStorageDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::FACADE_CONTENTFUL_PAGE_SEARCH] = function (Container $container) {
             return new ContentfulStorageToContentfulPageSearchFacadeBridge(
-                $container->getLocator()->contentfulStorage->facade()
+                $container->getLocator()->contentfulPageSearch()->facade()
             );
         };
 

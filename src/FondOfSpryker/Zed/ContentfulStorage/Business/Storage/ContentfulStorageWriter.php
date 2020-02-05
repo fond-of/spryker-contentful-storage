@@ -20,8 +20,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     protected $contentfulStorageQuery;
 
     /**
-     * ContentfulStorageWriter constructor.
-     *
      * @param \Orm\Zed\Contentful\Persistence\FosContentfulQuery $contentfulQuery
      * @param \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery $contentfulStorageQuery
      */
@@ -56,8 +54,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     /**
      * @param array $contentfulEntryIds
      *
-     * @throws
-     *
      * @return void
      */
     public function unpublish(array $contentfulEntryIds): void
@@ -76,8 +72,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     /**
      * @param int $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
-     *
-     * @throws
      *
      * @return void
      */
@@ -104,8 +98,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     /**
      * @param \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage $contentfulStorage
      *
-     * @throws
-     *
      * @return void
      */
     protected function deleteContentfulStorageEntity(FosContentfulStorage $contentfulStorage): void
@@ -120,8 +112,6 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     /**
      * @param int $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
-     *
-     * @throws
      *
      * @return \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage
      */
