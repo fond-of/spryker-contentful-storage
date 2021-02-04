@@ -100,6 +100,6 @@ class ContentfulStorageSynchronizationDataPlugin extends AbstractPlugin implemen
             $query->clear();
         }
 
-        return $query;
+        return $query->orderByIdContentfulStorage();
     }
 }
