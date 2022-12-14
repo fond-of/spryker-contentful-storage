@@ -12,8 +12,6 @@ class ContentfulStorageToContentfulPageSearchFacadeBridge implements ContentfulS
     protected $contentfulPageSearchFacade;
 
     /**
-     * ContentfulStorageToContentfulPageSearchFacadeBridge constructor.
-     *
      * @param \FondOfSpryker\Zed\ContentfulPageSearch\Business\ContentfulPageSearchFacadeInterface $contentfulPageSearchFacade
      */
     public function __construct(ContentfulPageSearchFacadeInterface $contentfulPageSearchFacade)

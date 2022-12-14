@@ -9,6 +9,8 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \FondOfSpryker\Zed\ContentfulStorage\Business\ContentfulStorageFacadeInterface getFacade()
  * @method \FondOfSpryker\Zed\ContentfulStorage\Communication\ContentfulStorageCommunicationFactory getFactory()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Persistence\ContentfulStorageQueryContainerInterface getQueryContainer()
  */
 class ContentfulStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
@@ -22,10 +24,12 @@ class ContentfulStorageListener extends AbstractPlugin implements EventBulkHandl
     {
         $eventTransferIds = $this->getFactory()->getEventBehaviourFacade()->getEventTransferIds($transfers);
 
-        if ($eventName === ContentfulEvents::ENTITY_FOS_CONTENTFUL_CREATE) {
-            $this->getFacade()->publish($eventTransferIds);
-        } elseif ($eventName === ContentfulEvents::ENTITY_FOS_CONTENTFUL_UPDATE) {
-            $this->getFacade()->publish($eventTransferIds);
+        if ($eventName === ContentfulEvents::ENTITY_FOS_CONTENTFUL_DELETE) {
+            $this->getFacade()->unpublish($eventTransferIds);
+
+            return;
         }
+
+        $this->getFacade()->publish($eventTransferIds);
     }
 }

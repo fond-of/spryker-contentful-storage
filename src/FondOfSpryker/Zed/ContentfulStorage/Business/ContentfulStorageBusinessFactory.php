@@ -2,18 +2,30 @@
 
 namespace FondOfSpryker\Zed\ContentfulStorage\Business;
 
+use Contentful\Delivery\Client;
+use FondOfSpryker\Shared\Contentful\KeyBuilder\EntryKeyBuilder;
+use FondOfSpryker\Shared\Contentful\KeyBuilder\IdentifierKeyBuilder;
+use FondOfSpryker\Shared\Contentful\Url\UrlFormatter;
+use FondOfSpryker\Shared\Contentful\Url\UrlFormatterInterface;
 use FondOfSpryker\Zed\ContentfulStorage\Business\Storage\ContentfulStorageWriter;
 use FondOfSpryker\Zed\ContentfulStorage\Business\Storage\ContentfulStorageWriterInterface;
 use FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageDependencyProvider;
 use FondOfSpryker\Zed\ContentfulStorage\Dependency\Facade\ContentfulStorageToContentfulPageSearchFacadeInterface;
 use Orm\Zed\Contentful\Persistence\FosContentfulQuery;
 use Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery;
+use Spryker\Client\Storage\StorageClientInterface;
+use Spryker\Client\Store\StoreClientInterface;
+use Spryker\Shared\KeyBuilder\KeyBuilderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
+/**
+ * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
+ * @method ContentfulStorageQueryContainer getQueryContainer()
+ */
 class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfSpryker\ContentfulStorage\Business\Storage\ContentfulStorageWriterInterface
+     * @return \FondOfSpryker\Zed\ContentfulStorage\Business\Storage\ContentfulStorageWriterInterface
      */
     public function createContentfulStorageWriter(): ContentfulStorageWriterInterface
     {
@@ -24,11 +36,35 @@ class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Orm\Zed\Contentful\Persistence\FosContentfulQuery
+     * @return \FondOfSpryker\Zed\ContentfulStorage\Dependency\Facade\ContentfulStorageToContentfulPageSearchFacadeInterface
      */
-    protected function createFosContentfulQuery(): FosContentfulQuery
+    public function getContentfulPageSearchFacade(): ContentfulStorageToContentfulPageSearchFacadeInterface
     {
-        return FosContentfulQuery::create();
+        return $this->getProvidedDependency(ContentfulStorageDependencyProvider::FACADE_CONTENTFUL_PAGE_SEARCH);
+    }
+
+    /**
+     * @return \Spryker\Client\Store\StoreClientInterface
+     */
+    public function getStoreClient(): StoreClientInterface
+    {
+        return $this->getProvidedDependency(ContentfulStorageDependencyProvider::CLIENT_STORE);
+    }
+
+    /**
+     * @return \Spryker\Client\Storage\StorageClientInterface
+     */
+    protected function getStorageClient(): StorageClientInterface
+    {
+        return $this->getProvidedDependency(ContentfulStorageDependencyProvider::STORAGE_CLIENT);
+    }
+
+    /**
+     * @return \FondOfSpryker\Shared\Contentful\Url\UrlFormatterInterface
+     */
+    protected function createUrlFormatter(): UrlFormatterInterface
+    {
+        return new UrlFormatter($this->getStoreClient());
     }
 
     /**
@@ -40,10 +76,10 @@ class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ContentfulStorage\Dependency\Facade\ContentfulStorageToContentfulPageSearchFacadeInterface
+     * @return \Orm\Zed\Contentful\Persistence\FosContentfulQuery
      */
-    public function getContentfulPageSearchFacade(): ContentfulStorageToContentfulPageSearchFacadeInterface
+    protected function createFosContentfulQuery(): FosContentfulQuery
     {
-        return $this->getProvidedDependency(ContentfulStorageDependencyProvider::FACADE_CONTENTFUL_PAGE_SEARCH);
+        return FosContentfulQuery::create();
     }
 }
