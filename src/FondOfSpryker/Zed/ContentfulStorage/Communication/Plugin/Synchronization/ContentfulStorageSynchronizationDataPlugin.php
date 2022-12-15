@@ -87,7 +87,7 @@ class ContentfulStorageSynchronizationDataPlugin extends AbstractPlugin implemen
      *
      * @api
      *
-     * @param int[] $ids
+     * @param array<int> $ids
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria|null
      */
@@ -96,7 +96,7 @@ class ContentfulStorageSynchronizationDataPlugin extends AbstractPlugin implemen
         $query = $this->getQueryContainer()
             ->queryContentfulStorageByIds($ids);
 
-        if (empty($ids)) {
+        if (!$ids) {
             $query->clear();
         }
 

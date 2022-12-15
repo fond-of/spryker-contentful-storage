@@ -2,9 +2,6 @@
 
 namespace FondOfSpryker\Zed\ContentfulStorage\Business;
 
-use Contentful\Delivery\Client;
-use FondOfSpryker\Shared\Contentful\KeyBuilder\EntryKeyBuilder;
-use FondOfSpryker\Shared\Contentful\KeyBuilder\IdentifierKeyBuilder;
 use FondOfSpryker\Shared\Contentful\Url\UrlFormatter;
 use FondOfSpryker\Shared\Contentful\Url\UrlFormatterInterface;
 use FondOfSpryker\Zed\ContentfulStorage\Business\Storage\ContentfulStorageWriter;
@@ -15,12 +12,11 @@ use Orm\Zed\Contentful\Persistence\FosContentfulQuery;
 use Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery;
 use Spryker\Client\Storage\StorageClientInterface;
 use Spryker\Client\Store\StoreClientInterface;
-use Spryker\Shared\KeyBuilder\KeyBuilderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
- * @method ContentfulStorageQueryContainer getQueryContainer()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Business\ContentfulStorageQueryContainer getQueryContainer()
  */
 class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
 {
@@ -30,8 +26,8 @@ class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
     public function createContentfulStorageWriter(): ContentfulStorageWriterInterface
     {
         return new ContentfulStorageWriter(
-            $this->createFosContentfulQuery(),
-            $this->createFosContentfulStorageQuery()
+            $this->getFosContentfulQuery(),
+            $this->getFosContentfulStorageQuery(),
         );
     }
 
@@ -70,7 +66,7 @@ class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorageQuery
      */
-    protected function createFosContentfulStorageQuery(): FosContentfulStorageQuery
+    protected function getFosContentfulStorageQuery(): FosContentfulStorageQuery
     {
         return FosContentfulStorageQuery::create();
     }
@@ -78,7 +74,7 @@ class ContentfulStorageBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Orm\Zed\Contentful\Persistence\FosContentfulQuery
      */
-    protected function createFosContentfulQuery(): FosContentfulQuery
+    protected function getFosContentfulQuery(): FosContentfulQuery
     {
         return FosContentfulQuery::create();
     }

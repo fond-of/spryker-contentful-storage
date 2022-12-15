@@ -70,12 +70,12 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     }
 
     /**
-     * @param int $contentfulId
+     * @param string $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
      *
      * @return void
      */
-    protected function store(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): void
+    protected function store(string $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): void
     {
         $contentfulStorageEntity = $this->findorCreateContentfulStorageEntity($contentfulId, $contentfulStorageTransfer);
 
@@ -110,12 +110,12 @@ class ContentfulStorageWriter implements ContentfulStorageWriterInterface
     }
 
     /**
-     * @param int $contentfulId
+     * @param string $contentfulId
      * @param \Generated\Shared\Transfer\ContentfulStorageTransfer $contentfulStorageTransfer
      *
      * @return \Orm\Zed\ContentfulStorage\Persistence\FosContentfulStorage
      */
-    protected function findorCreateContentfulStorageEntity(int $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): FosContentfulStorage
+    protected function findorCreateContentfulStorageEntity(string $contentfulId, ContentfulStorageTransfer $contentfulStorageTransfer): FosContentfulStorage
     {
         $this->contentfulStorageQuery->clear();
 
