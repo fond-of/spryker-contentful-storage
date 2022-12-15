@@ -7,7 +7,14 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class ContentfulStorageConfig extends AbstractBundleConfig
 {
+    /**
+     * @var string
+     */
     public const DEFAULT_FIELD_NAME_ACTIVE = 'isActive';
+
+    /**
+     * @var string
+     */
     public const DEFAULT_FIELD_NAME_IDENTIFIER = 'identifier';
 
     /**
@@ -17,7 +24,7 @@ class ContentfulStorageConfig extends AbstractBundleConfig
     {
         return $this->get(
             ContentfulStorageConstants::CONTENTFUL_SYNC_STORAGE_SYNCHRONIZATION_POOL_NAME,
-            ContentfulStorageConstants::CONTENTFUL_SYNC_STORAGE_DEFAULT_SYNCHRONIZATION_POOL_NAME
+            ContentfulStorageConstants::CONTENTFUL_SYNC_STORAGE_DEFAULT_SYNCHRONIZATION_POOL_NAME,
         );
     }
 

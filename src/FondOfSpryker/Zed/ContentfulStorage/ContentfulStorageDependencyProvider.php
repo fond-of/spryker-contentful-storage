@@ -9,9 +9,24 @@ use Spryker\Zed\Kernel\Container;
 
 class ContentfulStorageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_EVENT_BEHAVIOUR = 'FACADE_EVENT_BEHAVIOUR';
+
+    /**
+     * @var string
+     */
     public const FACADE_CONTENTFUL_PAGE_SEARCH = 'FACADE_CONTENTFUL_PAGE_SEARCH';
+
+    /**
+     * @var string
+     */
     public const STORAGE_CLIENT = 'STORAGE_CLIENT';
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORE = 'CLIENT_STORE';
 
     /**
@@ -49,7 +64,7 @@ class ContentfulStorageDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[self::FACADE_EVENT_BEHAVIOUR] = function (Container $container) {
             return new ContentfulStorageToEventBehaviorFacadeBridge(
-                $container->getLocator()->eventBehavior()->facade()
+                $container->getLocator()->eventBehavior()->facade(),
             );
         };
 
@@ -79,7 +94,7 @@ class ContentfulStorageDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container[static::FACADE_CONTENTFUL_PAGE_SEARCH] = function (Container $container) {
             return new ContentfulStorageToContentfulPageSearchFacadeBridge(
-                $container->getLocator()->contentfulPageSearch()->facade()
+                $container->getLocator()->contentfulPageSearch()->facade(),
             );
         };
 

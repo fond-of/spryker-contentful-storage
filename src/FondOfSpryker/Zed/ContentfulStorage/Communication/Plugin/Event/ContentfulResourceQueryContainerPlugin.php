@@ -10,7 +10,7 @@ use Spryker\Zed\EventBehavior\Dependency\Plugin\EventResourceQueryContainerPlugi
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method ContentfulStorageFacade getFacade()
+ * @method \FondOfSpryker\Zed\ContentfulStorage\Communication\Plugin\Event\ContentfulStorageFacade getFacade()
  * @method \FondOfSpryker\Zed\ContentfulStorage\Persistence\ContentfulStorageQueryContainerInterface getQueryContainer()
  * @method \FondOfSpryker\Zed\ContentfulStorage\Communication\ContentfulStorageCommunicationFactory getFactory()
  * @method \FondOfSpryker\Zed\ContentfulStorage\ContentfulStorageConfig getConfig()
@@ -63,7 +63,7 @@ class ContentfulResourceQueryContainerPlugin extends AbstractPlugin implements E
      *
      * @api
      *
-     * @param int[] $ids
+     * @param array<int> $ids
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria|null
      */
@@ -71,7 +71,7 @@ class ContentfulResourceQueryContainerPlugin extends AbstractPlugin implements E
     {
         $query = $this->getQueryContainer()->queryContentfulEntriesByIds($ids);
 
-        if (empty($ids)) {
+        if (!$ids) {
             $query->clear();
         }
 
